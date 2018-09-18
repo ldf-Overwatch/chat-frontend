@@ -1,0 +1,108 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.messages {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+h3 {
+    text-align: center;
+    padding: 20px 0;
+    margin: 0;
+    border-bottom: 1px solid #ddd;
+    background-color: #eee;
+}
+
+.chat-input {
+    position: relative;
+    overflow: hidden;
+    padding: 0 40px;
+    flex-shrink: 0;
+    right: 0;
+}
+
+.chat-input input[type="text"] {
+    width: 100%;
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+.message.from-me .username {
+    display: none;
+}
+
+.message.from-me {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 5px;
+}
+
+.message.from-me .message-body {
+    background-color: dodgerblue;
+    color: white;
+}
+
+.message {
+    margin-bottom: 20px;
+}
+.message-body {
+    max-width: 80%;
+    display: inline-block;
+    padding: 20px;
+    background-color: #eee;
+    border: 1px;
+    border-radius: 5px;
+    padding-right: 50px;
+}
+
+.username {
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #999;
+    margin-bottom: 5px;
+}
+
+
+pre {
+    white-space: pre-wrap;
+}
+.controls {
+    margin: 10px 0;
+}
+.webcams > video:nth-of-type(1) {
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
+}
+.webcams > video:nth-of-type(2) {
+    -webkit-filter: sepia(1);
+    filter: sepia(1);
+}
+.webcams > video:nth-of-type(3) {
+    -webkit-filter: saturate(8);
+    filter: saturate(8);
+}
+.webcams > video:nth-of-type(4) {
+    -webkit-filter: hue-rotate(90deg);
+    filter: hue-rotate(90deg);
+}
+.webcams > video:nth-of-type(6) {
+    -webkit-filter: invert(1);
+    filter: invert(1);
+}
+.webcams > video:nth-of-type(7) {
+    -webkit-filter: brightness(3);
+    filter: brightness(3);
+}
+.webcams > video:nth-of-type(8) {
+    -webkit-filter: contrast(4);
+    filter: contrast(4);
+}
+.webcams > video:nth-of-type(9) {
+    -webkit-filter: blur(1px);
+    filter: blur(1px);
+}

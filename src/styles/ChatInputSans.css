@@ -1,0 +1,36 @@
+
+
+#show-emoji-no {
+    font-size: 25px;
+    width: 30px;
+    position: fixed;
+    bottom: 2%;
+    margin-left: 96%;
+}
+
+#show-emoji-no:hover {
+    font-size: 28px;
+    opacity: 0.9;
+    transition-duration: 10ms;
+}
+
+#show-emoji-yes {
+    font-size: 25px;
+    position: fixed;
+    bottom: 2%;
+    margin-left: 96%;
+}
+#show-emoji-yes:hover {
+    font-size: 28px;
+    transition-duration: 10ms;
+}
+
+.emoji-table {
+    position: fixed;
+    bottom: 7%;
+    margin-left: 75%;
+
+}
+
+
+
