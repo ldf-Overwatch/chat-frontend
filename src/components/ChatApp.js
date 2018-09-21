@@ -43,9 +43,6 @@ class ChatApp extends Component {
         };
 
 
-
-
-
         this.sendHandler = this.sendHandler.bind(this);
         this.submitHandler =this.submitHandler.bind(this);
         this.textChangeHandler = this.textChangeHandler.bind(this);
@@ -53,6 +50,7 @@ class ChatApp extends Component {
         this.toogleEmojiState = this.toogleEmojiState.bind(this);
         this.onChangeFile = this.onChangeFile.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleDeconnectClick = this.handleDeconnectClick.bind (this);
 
 
 
@@ -67,6 +65,11 @@ class ChatApp extends Component {
         });
 
 
+    }
+
+    handleDeconnectClick (){
+        localStorage.removeItem('user');
+        window.location.reload();
     }
 
 
@@ -209,8 +212,6 @@ class ChatApp extends Component {
 
             // form
     render() {
-
-
                 const {messages, isLoading  } = this.state;
 
                 if (isLoading) {
@@ -218,6 +219,9 @@ class ChatApp extends Component {
                 }
                 else if (this.state.emojiShown) {
                     return (<div className="container">
+                        <a href="" onClick={this.handleDeconnectClick}  >
+                            Déconnection
+                        </a>
                         <button onClick={this.handleClick}>
                             {this.state.isToggleOn ? 'ON' : <WebCam
                                 style={{width: "60vw", height: "60vh" }}
@@ -226,7 +230,8 @@ class ChatApp extends Component {
                                 audio={false} />}
 
                         </button>
-                            <h3>React Chat App</h3>
+                        <h3>React Chat App
+                        </h3>
                             <UserList users={this.props.users}/>
                             <Messages messages={messages}/>
                             <ChatInputAvec
@@ -244,21 +249,25 @@ class ChatApp extends Component {
                         </div>)
 
                     }
-             else if (this.props.users && this.props.users.length > 0){
+             else if (localStorage.getItem('user') &&
+                    localStorage.getItem('user') !== 'undefined' &&
+                    localStorage.getItem('user').length > 0){
               return (
 
                   <div className="container">
+                      <a href="" onClick={this.handleDeconnectClick}  >
+                          Déconnection
+                      </a>
+
                       <button onClick={this.handleClick}>
                           {this.state.isToggleOn ? 'FaceTime' : <WebCam
                               style={{width: "60vw", height: "60vh" }}
                               ref={this.setRef}
                               videoConstraints={this.state.webcam}
                               audio={false} />}
-
                       </button>
-
-
-                      <h3>React Chat App</h3>
+                      <h3>React Chat App
+                      </h3>
                      <UserList users={this.props.users}/>
                      <Messages messages={messages}/>
                  <ChatInputSans chatInput = {this.state.chatInput}

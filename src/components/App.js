@@ -23,32 +23,24 @@ class App extends Component {
         this.passwordChangeHandler = this.passwordChangeHandler.bind(this);
         this.usernameSubmitHandler = this.usernameSubmitHandler.bind(this);
         this.handleClick = this.handleClick.bind(this);
-        this.handleLocalStorage(this);
 
-
-    }
-
-    /**
-     * auto authentification
-     */
-    handleLocalStorage() {
-
-        //récupère la valeur user stocké dans le navigateur en local storage pour authentifier la personne.
-        if(localStorage.getItem('user') && localStorage.getItem('user').length > 0)
-        {
-            let body = JSON.parse(localStorage.getItem('user'));
-
-            const output = this.state;
-            output.users.push({id: `${body._id}`, username: `${body.username}`});
-            output.submitted = true;
-            output.username = `${body.username}`;
-            output.password = `${body.password}`;
-
-            this.setState(output);
-        }
     }
 
   componentDidMount() {
+      //récupère la valeur user stocké dans le navigateur en local storage pour authentifier la personne.
+      if(localStorage.getItem('user') && localStorage.getItem('user').length > 0)
+      {
+          let body = JSON.parse(localStorage.getItem('user'));
+
+          const output = this.state;
+          output.users.push({id: `${body._id}`, username: `${body.username}`});
+          output.submitted = true;
+          output.username = `${body.username}`;
+          output.password = `${body.password}`;
+
+          this.setState(output);
+      }
+
         setInterval(() => {
                 return fetch('http://localhost:8080/users', {
                     method: 'GET'
