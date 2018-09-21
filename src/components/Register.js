@@ -11,8 +11,6 @@ class Register extends Component {
             email: '',
             name: '',
             value: '',
-            
-
 
 
         };
@@ -21,7 +19,9 @@ class Register extends Component {
         this.useChangeHandler = this.useChangeHandler.bind(this);
         this.useSubmitHandler = this.useSubmitHandler.bind(this);
         this.handleChange = this.handleChange.bind(this);
-
+        this.emaileChangeHandler = this.emaileChangeHandler.bind(this);
+        this.passwordChangeHandler = this.passwordChangeHandler.bind(this);
+        this.nameChangeHandler=this.nameChangeHandler.bind(this)
 
 
     }
@@ -32,14 +32,34 @@ class Register extends Component {
 
     useChangeHandler(event) {
         this.setState({
-            email: event.target.value, name: event.target.value,
-            username: event.target.value, file: event.target.value, password: event.target.value
+            username: event.target.value,
         });
     }
 
+    passwordChangeHandler(event) {
+        this.setState({
+            password: event.target.value
+
+        });
+
+    }
+
+
+    emaileChangeHandler(event) {
+        this.setState({
+            email: event.target.value
+        });
+    }
+
+    nameChangeHandler(event) {
+        this.setState({
+             name: event.target.value,
+        })
+
+}
+
 
     useSubmitHandler(event) {
-        alert('you are registered ' + this.state.value);
         event.preventDefault();
         const data = new FormData();
         data.append('username', this.state.username);
@@ -53,15 +73,31 @@ class Register extends Component {
         }).then((response) => {
             response.json().then((body) => {
 
-                this.setState({
-                    submitted: true,
-                    username: `${body.username}`,
-                    password: `${body.password}`,
-                    email: `${body.email}`,
-                    name: `${body.name}`,
-                    file: `http://localhost:8080/${body.image}`
+                if(response.status === 200) {
 
-                });
+
+                        alert('vous êtes inscrit' + this.state.value);
+                        this.setState({
+                            submitted: true,
+                            username: `${body.username}`,
+                            password: `${body.password}`,
+                            email: `${body.email}`,
+                            name: `${body.name}`,
+                            file: `http://localhost:8080/${body.image}`
+
+                        });
+
+                }
+                else if(response.status === 500){
+                    alert('compte existe déjà');
+                }
+                else if(response.status === 403){
+                    alert('image manquante');
+                }
+                else {
+                    alert('error inconnu');
+                }
+
 
             });
 
@@ -83,7 +119,7 @@ class Register extends Component {
                     </label>
                     <input
                         type="text"
-                        onChange={this.useChangeHandler}
+                        onChange={this.nameChangeHandler}
                         placeholder="name..."
                         required
                     />
@@ -95,7 +131,7 @@ class Register extends Component {
                     />
                     <input
                         type="text"
-                        onChange={this.useChangeHandler}
+                        onChange={this.emaileChangeHandler}
                         placeholder="email..."
                         required
                     />
@@ -103,7 +139,7 @@ class Register extends Component {
                     <input
                         type="password"
                         placeholder="Enter your Password"
-                        onChange={this.useChangeHandler}
+                        onChange={this.passwordChangeHandler}
                         required
                     />
 

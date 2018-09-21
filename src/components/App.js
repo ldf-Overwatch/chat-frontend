@@ -20,12 +20,33 @@ class App extends Component {
 
         // la gestionnaires d'événements.
         this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
+        this.passwordChangeHandler = this.passwordChangeHandler.bind(this);
         this.usernameSubmitHandler = this.usernameSubmitHandler.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleLocalStorage(this);
 
 
     }
 
+    /**
+     * auto authentification
+     */
+    handleLocalStorage() {
+
+        //récupère la valeur user stocké dans le navigateur en local storage pour authentifier la personne.
+        if(localStorage.getItem('user') && localStorage.getItem('user').length > 0)
+        {
+            let body = JSON.parse(localStorage.getItem('user'));
+
+            const output = this.state;
+            output.users.push({id: `${body._id}`, username: `${body.username}`});
+            output.submitted = true;
+            output.username = `${body.username}`;
+            output.password = `${body.password}`;
+
+            this.setState(output);
+        }
+    }
 
   componentDidMount() {
         setInterval(() => {
@@ -53,7 +74,11 @@ class App extends Component {
 
 
     usernameChangeHandler(event) { // le user
-        this.setState({username: event.target.value, password: event.target.value});
+        this.setState({username: event.target.value});
+    }
+
+    passwordChangeHandler(event) { // le user
+        this.setState({password: event.target.value});
     }
 
 
@@ -124,6 +149,7 @@ class App extends Component {
                         <div>
                             <input
                                 type="text"
+                                name="username"
                                 onChange={this.usernameChangeHandler}
                                 placeholder="Enter a pseudo....."
                                 required
@@ -131,8 +157,9 @@ class App extends Component {
 
                             <input
                                 type="password"
+                                name="password"
                                 placeholder="Enter your Password"
-                                onChange={this.usernameChangeHandler}
+                                onChange={this.passwordChangeHandler}
                                 required
                             />
 
